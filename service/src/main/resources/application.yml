@@ -1,0 +1,64 @@
+server:
+  port: 9099
+  max-http-header-size: 40KB
+
+management:
+  endpoints:
+    web:
+      expose: "*"
+      base-path: "/"
+      path-mapping:
+        prometheus: "metrics"
+      exposure:
+        include: [ "health", "info", "prometheus" ]
+  info:
+    git:
+      mode: full
+  metrics:
+    binders:
+      jvm.enabled: true
+      logback.enabled: true
+    export:
+      prometheus:
+        descriptions: true
+        enabled: true
+        step: 1m
+    distribution:
+      percentiles-histogram[http.server.requests]: true
+      percentiles:
+        http.server.requests: 0.50, 0.75, 0.95, 0.99
+      sla:
+        http.server.requests: 10ms,100ms
+
+spring:
+  datasource:
+    url: jdbc:mysql://127.0.0.1/scoreboard?createDatabaseIfNotExist=true
+    username: root
+    password: password
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      connectionTimeout: 30000
+      idleTimeout: 600000
+      maxLifetime: 600000
+  jpa:
+    properties:
+      hibernate:
+        ddl-auto: validate
+        dialect: org.hibernate.dialect.MySQL5Dialect
+        use_sql_comments: false
+        format_sql: false
+        current_session_context_class: org.springframework.orm.hibernate5.SpringSessionContext
+      # Naming strategy
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+    show-sql: false
+  liquibase:
+    change-log: classpath:/db/changelog/db.changelog-master.xml
+  jackson:
+    default-property-inclusion: NON_NULL
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 15MB
+      max-request-size: 15MB

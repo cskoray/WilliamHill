@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+  xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+  <changeSet author="koray.kaya" id="111111-1">
+    <createTable tableName="team">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true"/>
+      </column>
+      <column name="team_key" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="name" type="VARCHAR(35)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="koray.kaya" id="111111-2">
+    <createTable tableName="player">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true"/>
+      </column>
+      <column name="player_key" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="team_key" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="name" type="VARCHAR(35)">
+        <constraints nullable="false"/>
+      </column>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="koray.kaya" id="111111-3">
+    <createTable tableName="game">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true"/>
+      </column>
+      <column name="game_key" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="home_team_key" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="away_team_key" type="VARCHAR(36)">
+      </column>
+      <column name="home_score" type="INT"/>
+      <column name="away_score" type="INT"/>
+      <column name="game_date" type="TIMESTAMP"/>
+    </createTable>
+  </changeSet>
+
+  <changeSet author="koray.kaya" id="111111-4">
+    <createTable tableName="score">
+      <column name="id" type="BIGINT" autoIncrement="true">
+        <constraints nullable="false" primaryKey="true"/>
+      </column>
+      <column name="score_key" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="game_key" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="team_key" type="VARCHAR(36)">
+      </column>
+      <column name="player_key" type="VARCHAR(36)">
+        <constraints nullable="false"/>
+      </column>
+      <column name="score_minute" type="INT"/>
+    </createTable>
+  </changeSet>
+
+</databaseChangeLog>

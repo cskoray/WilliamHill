@@ -1,0 +1,38 @@
+plugins {
+    id 'application'
+    id 'java'
+    id 'maven-publish'
+}
+
+allprojects {
+    apply plugin: 'eclipse'
+    apply plugin: 'maven-publish'
+    apply plugin: 'idea'
+}
+
+subprojects {
+    apply plugin: 'eclipse'
+    apply plugin: 'maven-publish'
+    apply plugin: 'idea'
+    apply plugin: 'java'
+    group = 'com.williamHill'
+    version = '0.0.1-SNAPSHOT'
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven { url 'https://packages.confluent.io/maven' }
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenLocal()
+    maven { url 'https://packages.confluent.io/maven' }
+}
